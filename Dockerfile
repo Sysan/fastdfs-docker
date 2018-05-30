@@ -6,12 +6,18 @@ ENV FASTDFS_PATH=/opt/fdfs \
     FASTDFS_BASE_PATH=/var/fdfs \
     PORT= \
     GROUP_NAME= \
-    NGINX_PATH= /opt/nginx \
+    NGINX_PATH=/opt/nginx \
     TRACKER_SERVER=
 
 
 #get all the dependences
-RUN yum install -y git gcc make zlib zlib-devel openssl openssl-devel prce prce-devel autoconf automake wget
+RUN yum -y update \
+ && yum install -y git gcc make \
+ && yum install -y zlib zlib-devel \
+ && yum install -y openssl openssl-devel \
+ && yum install -y prce prce-devel \
+ && yum install -y autoconf automake \
+ && yum install -y wget
 
 #create the dirs to store the files downloaded from internet
 RUN mkdir -p ${FASTDFS_PATH}/libfastcommon \
