@@ -11,11 +11,10 @@ ENV FASTDFS_PATH=/opt/fdfs \
 
 
 #get all the dependences
-RUN yum -y update \
- && yum install -y git gcc make \
+RUN yum install -y git gcc make \
  && yum install -y zlib zlib-devel \
  && yum install -y openssl openssl-devel \
- && yum install -y prce prce-devel \
+ && yum install -y pcre pcre-devel \
  && yum install -y autoconf automake \
  && yum install -y wget
 
@@ -46,14 +45,13 @@ RUN git clone --branch V5.11 --depth 1 https://github.com/happyfish100/fastdfs.g
 #download and set nginx
 WORKDIR ${NGINX_PATH}/nginx
 
-RUN wget -c https://nginx.org/download/nginx-1.10.1.tar.gz ${NGINX_PATH}/nginx-download \
+RUN wget -c -P ${NGINX_PATH}/nginx-download https://nginx.org/download/nginx-1.10.1.tar.gz \
 	&& git clone https://github.com/happyfish100/fastdfs-nginx-module.git ${NGINX_PATH}/fastdfs-nginx-module \
-	&& tar zxvf ${NGINX_PATH}/nginx-download/nginx-1.10.1.tar.gz ${NGINX_PATH}/nginx \
+	&& tar zxvf ${NGINX_PATH}/nginx-download/nginx-1.10.1.tar.gz -C ${NGINX_PATH} \
+	&& cd ${NGINX_PATH}/nginx-1.10.1 \
 	&& ./configure --add-module=${NGINX_PATH}/fastdfs-nginx-module/src \
-	&& ./make \
-	&& ./make install \
+	&& make && make install \
 	&& cp ${NGINX_PATH}/fastdfs-nginx-module/src/mod_fastdfs.conf /etc/fdfs/ \
-	&& ln -s /var/fdfs/data/ /var/fdfs/data/M00 \
 	&& rm -rf ${NGINX_PATH}/nginx-download \
 	&& rm -rf ${NGINX_PATH}/nginx \
 	&& rm -rd ${NGINX_PATH}/fastdfs-nginx-module

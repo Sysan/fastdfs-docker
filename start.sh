@@ -47,18 +47,14 @@ do
 	TIMES=`expr $TIMES - 1`
 done
 
-# if the storage node start successfully, print the started time.
-# if [ $TIMES -gt 0 ]; then
-#     echo "the ${FASTDFS_MODE} node started successfully at $(date +%Y-%m-%d_%H:%M)"
-	
-# 	# give the detail log address
-#     echo "please have a look at the log detail at $FASTDFS_LOG_FILE"
+# if the storage node start successfully, start nginx 
+# firstly, create soft link to data directory
+# then start nginx
 
-#     # leave balnk lines to differ from next log.
-#     echo
-#     echo
-
-    
+if [ $TIMES -gt 0 ]; then
+  ln -s /var/fdfs/data/ /var/fdfs/data/M00
+  /usr/local/nginx/sbin/nginx
+if
 	
 # 	# make the container have foreground process(primary commond!)
 #     tail -F --pid=`cat $PID_NUMBER` /dev/null
