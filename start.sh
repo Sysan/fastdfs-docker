@@ -51,10 +51,10 @@ done
 # firstly, create soft link to data directory
 # then start nginx
 
-if [ $TIMES -gt 0 ]; then
+if [ $TIMES -gt 0 ] && [ FASTDFS_MODE = "storage" ]; then
   ln -s /var/fdfs/data/ /var/fdfs/data/M00
   /usr/local/nginx/sbin/nginx
-if
+fi
 	
 # 	# make the container have foreground process(primary commond!)
 #     tail -F --pid=`cat $PID_NUMBER` /dev/null

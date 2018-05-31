@@ -11,7 +11,8 @@ ENV FASTDFS_PATH=/opt/fdfs \
 
 
 #get all the dependences
-RUN yum install -y git gcc make \
+RUN yum -y update \
+ && yum install -y git gcc make \
  && yum install -y zlib zlib-devel \
  && yum install -y openssl openssl-devel \
  && yum install -y pcre pcre-devel \
