@@ -57,7 +57,7 @@ RUN wget -c -P ${NGINX_PATH}/nginx-download https://nginx.org/download/nginx-1.1
 	&& rm -rf ${NGINX_PATH}/nginx \
 	&& rm -rd ${NGINX_PATH}/fastdfs-nginx-module
 
-EXPOSE 22122 23000 8080 8888
+EXPOSE 22122 23000 8080 8888 8899
 VOLUME ["$FASTDFS_BASE_PATH", "/etc/fdfs"]   
 
 COPY conf/fastdfs/*.* /etc/fdfs/
